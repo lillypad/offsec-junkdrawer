@@ -141,7 +141,13 @@ function cleanup ()
 
 trap cleanup INT
 
-while :; do
-  action &
-  throttle $joblimit
-done
+if [ "${joblimit}" = "1" ]; then
+    while :; do
+        action
+    done
+else
+    while :; do
+        action &
+        throttle $joblimit
+    done
+fi
